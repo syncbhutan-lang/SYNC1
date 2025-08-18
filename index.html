@@ -97,7 +97,7 @@
         .service-card:hover .service-icon path {
             transform: translateY(-5px);
         }
-
+        
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -124,17 +124,27 @@
                     <span class="text-xs text-gray-500 font-medium">Systems & Network Computing</span>
                 </div>
             </a>
-            <div class="space-x-8 hidden md:flex font-semibold text-gray-600">
+            <div id="desktop-menu" class="space-x-8 hidden md:flex font-semibold text-gray-600">
                 <a href="#about" class="hover:text-blue-600 transition-colors duration-300">About Us</a>
                 <a href="#services" class="hover:text-blue-600 transition-colors duration-300">Services</a>
                 <a href="#projects" class="hover:text-blue-600 transition-colors duration-300">Projects</a>
                 <a href="#process" class="hover:text-blue-600 transition-colors duration-300">Our Process</a>
                 <a href="#contact" class="hover:text-blue-600 transition-colors duration-300">Contact</a>
             </div>
-            <button class="md:hidden text-gray-900 focus:outline-none">
+            <button id="mobile-menu-button" class="md:hidden text-gray-900 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden w-full bg-white shadow-lg py-4">
+            <div class="flex flex-col items-center space-y-4 font-semibold text-gray-600">
+                <a href="#about" class="hover:text-blue-600 transition-colors duration-300 py-2">About Us</a>
+                <a href="#services" class="hover:text-blue-600 transition-colors duration-300 py-2">Services</a>
+                <a href="#projects" class="hover:text-blue-600 transition-colors duration-300 py-2">Projects</a>
+                <a href="#process" class="hover:text-blue-600 transition-colors duration-300 py-2">Our Process</a>
+                <a href="#contact" class="hover:text-blue-600 transition-colors duration-300 py-2">Contact</a>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -248,6 +258,14 @@
                     </svg>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">CCTV & Surveillance</h3>
                     <p class="text-gray-600">Installation and maintenance of security camera systems for homes and businesses.</p>
+                </div>
+                <!-- Business Intelligence -->
+                <div class="p-8 bg-white rounded-2xl shadow-lg border border-gray-100 transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll service-card" style="animation-delay: 0.7s;">
+                    <svg class="w-16 h-16 mb-4 text-indigo-600 service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M18 10a2 2 0 11-4 0 2 2 0 014 0zM12 16a2 2 0 11-4 0 2 2 0 014 0zM12 20a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <h3 class="text-2xl font-bold mb-2 text-gray-900">Business Intelligence</h3>
+                    <p class="text-gray-600">We help you analyze and visualize your data to make smarter business decisions.</p>
                 </div>
             </div>
         </section>
@@ -367,8 +385,8 @@
                 </form>
             </div>
             <div class="mt-12 text-center space-y-2 text-gray-600">
-                <p>Email: <a href="mailto:sync.bhutan@gmail.com" class="hover:underline">sync.bhutan@gmail.com</a></p>
-                <p>Phone: <a href="tel:+975-17649720" class="hover:underline">+975-17649720</a></p>
+                <p>Email: <a href="mailto:info@sync.bt" class="hover:underline">info@sync.bt</a></p>
+                <p>Phone: <a href="tel:+975-XXX-XXXX" class="hover:underline">+975-XXX-XXXX</a></p>
                 <p>Address: Thimphu, Bhutan</p>
             </div>
         </section>
@@ -381,6 +399,14 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggler
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
         // Intersection Observer for scroll-based animations
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
         const observer = new IntersectionObserver((entries) => {
@@ -394,6 +420,20 @@
         
         elementsToAnimate.forEach(element => {
             observer.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close the mobile menu after clicking a link
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
